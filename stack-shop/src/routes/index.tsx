@@ -13,11 +13,11 @@ export const Route = createFileRoute('/')({
   component: App,
   loader: async () => {
     // This runs on server during SSR AND on client during navigation
-    return { products: sampleProducts }
+    return { products: sampleProducts.slice(0, 3) }
   },
 })
 
-function App() {
+async function App() {
   const { products } = Route.useLoaderData()
 
   return (
