@@ -1,6 +1,5 @@
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -8,6 +7,7 @@ import {
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
 import { sampleProducts } from '../db/seed'
+import { ProductCard } from '@/components/ProductCard'
 
 export const Route = createFileRoute('/')({
   component: App,
@@ -57,12 +57,12 @@ async function App() {
         </Card>
       </section>
 
-      <section>
-        <Card className="p-8 shadow-md bg-white/80">
+      <section className="space-y-4 max-w-6xl mx-auto">
+        <Card className="p-8 shadow-md bg-white/80 w-full">
           <div>
             <CardHeader className="px-0">
               <p
-                className="text-xs font-semibold uppercase tracking-wide
+                className="text-xs font-bold uppercase tracking-wide
               text-blue-700"
               >
                 Recommended
@@ -90,21 +90,12 @@ async function App() {
               View All <ArrowRight size={14} />
             </Link>
           </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {products.map((product, index) => (
+              <ProductCard product={product} key={`product-${index}`} />
+            ))}
+          </div>
         </Card>
-
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product, index) => (
-            <Card key={`product-${index}`}>
-              <CardHeader>
-                <CardTitle>{product.name}</CardTitle>
-              </CardHeader>
-
-              <CardContent>
-                <CardDescription>{product.description}</CardDescription>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
       </section>
     </div>
   )
