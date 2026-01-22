@@ -6,14 +6,15 @@ import {
 } from '@/components/ui/card'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
-import { sampleProducts } from '../db/seed'
 import { ProductCard } from '@/components/ProductCard'
+import { getRecommendedProducts } from '@/data/products'
 
 export const Route = createFileRoute('/')({
   component: App,
   loader: async () => {
     // This runs on server during SSR AND on client during navigation
-    return { products: sampleProducts.slice(0, 3) }
+    const products = await getRecommendedProducts()
+    return { products }
   },
 })
 
