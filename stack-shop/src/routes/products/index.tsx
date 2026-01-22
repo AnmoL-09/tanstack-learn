@@ -29,8 +29,10 @@ const loggerMiddleware = createMiddleware().server(
 export const Route = createFileRoute('/products/')({
   component: RouteComponent,
   loader: async () => {
+    console.log('---loader---')
     return fetchProducts()
   },
+  ssr: 'data-only',
   server: {
     middleware: [loggerMiddleware],
     handlers: {
