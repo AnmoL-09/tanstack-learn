@@ -32,7 +32,7 @@ export const Route = createFileRoute('/products/')({
     console.log('---loader---')
     return fetchProducts()
   },
-  ssr: 'data-only',
+  ssr: false,
   server: {
     middleware: [loggerMiddleware],
     handlers: {
