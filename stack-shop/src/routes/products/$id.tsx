@@ -1,5 +1,12 @@
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { getProductById } from '@/data/products'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
+import { ArrowLeftIcon } from 'lucide-react'
 
 export const Route = createFileRoute('/products/$id')({
   component: RouteComponent,
@@ -14,7 +21,22 @@ function RouteComponent() {
 
   return (
     <div>
-      Hello "/products/$id" {id}!{JSON.stringify(product)}
+      <Card>
+        <CardHeader>
+          <Link
+            to="/products"
+            className="inline-flex items-center gap-2
+          text-sm font-medium text-blue-600 hover:text-blue-700"
+          >
+            <ArrowLeftIcon size={16} />
+            Back to products
+          </Link>
+          <CardTitle className="text-2xl font-semibold">
+            {product?.name}
+          </CardTitle>
+          <CardDescription>{product?.description}</CardDescription>
+        </CardHeader>
+      </Card>
     </div>
   )
 }
