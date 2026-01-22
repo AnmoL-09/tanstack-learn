@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { sampleProducts } from '@/db/seed'
+import { useQuery } from '@tanstack/react-query'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { createMiddleware, createServerFn, json } from '@tanstack/react-start'
 
@@ -44,6 +45,12 @@ export const Route = createFileRoute('/products/')({
 function RouteComponent() {
   const products = Route.useLoaderData()
 
+  const { data } = useQuery({
+    queryKey: ['products'],
+    queryFn: () => fetchProducts(),
+    initialData: products,
+  })
+
   return (
     <div className="space-y-6">
       <section className="space-y-4 max-w-6xl mx-auto">
@@ -75,7 +82,7 @@ function RouteComponent() {
 
       <section>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product, index) => (
+          {data?.map((product, index) => (
             <ProductCard key={`product-${index}`} product={product} />
           ))}
         </div>
