@@ -7,16 +7,37 @@ import {
 } from '@/components/ui/card'
 import { sampleProducts } from '@/db/seed'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { createServerFn } from '@tanstack/react-start'
+import { createMiddleware, createServerFn, json } from '@tanstack/react-start'
 
 const fetchProducts = createServerFn({ method: 'GET' }).handler(async () => {
   return sampleProducts
 })
 
+const loggerMiddleware = createMiddleware().server(
+  async ({ next, request }) => {
+    console.log(
+      '---loggerMiddleware---',
+      request.url,
+      'from',
+      request.headers.get('origin'),
+    )
+    return next()
+  },
+)
+
 export const Route = createFileRoute('/products/')({
   component: RouteComponent,
   loader: async () => {
     return fetchProducts()
+  },
+  server: {
+    middleware: [loggerMiddleware],
+    handlers: {
+      POST: async ({ request }) => {
+        const body = await request.json()
+        return json({ message: 'Hello, world from POST request!' }, body)
+      },
+    },
   },
 })
 
