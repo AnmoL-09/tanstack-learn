@@ -4,14 +4,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { getProductById } from '@/data/products'
+import { getProductById } from '@/data/products.server'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArrowLeftIcon } from 'lucide-react'
 
 export const Route = createFileRoute('/products/$id')({
   component: RouteComponent,
   loader: async ({ params }) => {
-    return await getProductById(params.id)
+    return await getProductById({ data: params.id })
   },
 })
 

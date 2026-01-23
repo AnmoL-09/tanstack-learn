@@ -7,7 +7,7 @@ import {
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
 import { ProductCard } from '@/components/ProductCard'
-import { getRecommendedProducts } from '@/data/products'
+import { getRecommendedProducts } from '@/data/products.server'
 
 export const Route = createFileRoute('/')({
   component: App,
@@ -18,7 +18,7 @@ export const Route = createFileRoute('/')({
   },
 })
 
-async function App() {
+function App() {
   const { products } = Route.useLoaderData()
 
   return (
