@@ -1,5 +1,6 @@
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -31,10 +32,27 @@ function RouteComponent() {
             <ArrowLeftIcon size={16} />
             Back to products
           </Link>
-          <CardTitle className="text-2xl font-semibold">
-            {product?.name}
-          </CardTitle>
-          <CardDescription>{product?.description}</CardDescription>
+          <CardHeader className="flex items-center gap-2">
+            <CardTitle className="text-2xl font-semibold">
+              <h1 className="text-2xl font-semibold">{product?.name}</h1>
+            </CardTitle>
+            <div className="flex items-center gap-2">
+              {product?.badge && (
+                <span
+                  className="rounded-full bg-slate-900 px-2 py-0.5
+                      text-xs font-semibold text-white"
+                >
+                  {product.badge}
+                </span>
+              )}
+            </div>
+            <CardDescription className="text-lg">
+              {product?.description}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-lg font-semibold">${product?.price}</p>
+          </CardContent>
         </CardHeader>
       </Card>
     </div>
